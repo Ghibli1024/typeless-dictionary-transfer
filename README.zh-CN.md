@@ -3,14 +3,18 @@
 [![README-English](https://img.shields.io/badge/README-English-555555?style=for-the-badge)](README.md)
 [![README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87](https://img.shields.io/badge/README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-2d6cdf?style=for-the-badge)](README.zh-CN.md)
 
-把 Typeless 个人词典导出成可移植 bundle，审查后再导入到当前登录的 Typeless 账号。
+把 Typeless 个人词典导出成可编辑、可迁移的本地 bundle，审查或修改后再导入到当前登录的 Typeless 账号。
+
+Typeless 官方已在 2026年5月14日发布的 [macOS App v1.4.0](https://www.typeless.com/help/release-notes/macos) 中支持“批量导入词典”。本项目在批量导入之外，额外提供词典导出、编辑后回导、跨账号迁移、导入前预览、对比与同步能力。
 
 这个项目优先解决“词典可移植性”，账号迁移只是其中一个场景。它可以帮助你：
 
-- 导出当前登录 Typeless 账号的词典
-- 在导入前审查或编辑导出的 bundle
-- 对当前 Typeless 账号执行 dry-run 导入
+- 导出当前登录 Typeless 账号的词典为 `dictionary.txt` / `dictionary.json`
+- 人工审阅、修改导出的词典文件
+- 修改后导回自己的 Typeless 账号
 - 在明确切换账号后，把 bundle 导入另一个 Typeless 账号
+- 在正式写入前执行导入前预览（dry-run），查看会新增或跳过哪些词
+- 对比当前账号与导出包差异，并按 add-only 或显式 mirror 模式同步
 
 它**不会**自动替你执行 Typeless 的登录/登出。账号切换保留为显式人工检查点，以降低把词典导入错误账号的风险。
 
@@ -36,7 +40,7 @@ dictionary.json
 dictionary.txt
 ```
 
-### 3. 先做一次 dry-run 导入
+### 3. 先做一次导入前预览（dry-run）
 
 ```bash
 $HOME/.codex/skills/typeless-dictionary-transfer/scripts/typeless_dictionary_transfer.sh import-dry-run /path/to/bundle-dir
@@ -127,7 +131,7 @@ $HOME/bin/typeless-dict export /tmp/typeless-dictionary.json --tab all --format 
 $HOME/bin/typeless-dict export /tmp/typeless-dictionary.txt --tab all --format txt
 ```
 
-### dry-run 导入
+### 导入前预览（dry-run）
 
 ```bash
 $HOME/bin/typeless-dict import /path/to/dictionary.txt --dry-run
@@ -165,7 +169,7 @@ $HOME/.codex/skills/typeless-dictionary-transfer/scripts/typeless_dictionary_tra
 
 默认输出 JSON；如果想要更易读的文本摘要，可加 `--text`。
 
-### 从 bundle 做 dry-run 导入
+### 从 bundle 做导入前预览（dry-run）
 
 ```bash
 $HOME/.codex/skills/typeless-dictionary-transfer/scripts/typeless_dictionary_transfer.sh import-dry-run <bundle-dir>
@@ -219,7 +223,7 @@ $HOME/.codex/skills/typeless-dictionary-transfer/scripts/typeless_dictionary_tra
 $HOME/bin/typeless-dict whoami
 ```
 
-### 5. 先执行 dry-run
+### 5. 先执行导入前预览（dry-run）
 
 ```bash
 $HOME/.codex/skills/typeless-dictionary-transfer/scripts/typeless_dictionary_transfer.sh import-dry-run /path/to/bundle-dir
@@ -236,7 +240,7 @@ $HOME/.codex/skills/typeless-dictionary-transfer/scripts/typeless_dictionary_tra
 - **导出结果意外为 0**
   先确认 Typeless 桌面客户端确实已登录，并重新运行 `typeless-dict whoami`。
 
-- **dry-run 显示已有词太多**
+- **导入前预览（dry-run）显示已有词太多**
   先审查并精简 `dictionary.txt`，再执行正式导入。bundle 刻意保留为纯文本，方便人工修改。
 
 - **担心导入错账号**

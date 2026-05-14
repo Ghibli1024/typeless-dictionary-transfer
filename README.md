@@ -3,14 +3,18 @@
 [![README-English](https://img.shields.io/badge/README-English-555555?style=for-the-badge)](README.md)
 [![README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87](https://img.shields.io/badge/README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-2d6cdf?style=for-the-badge)](README.zh-CN.md)
 
-Export, review, restore, and transfer Typeless personal dictionaries as portable bundles.
+Export Typeless personal dictionaries into editable, portable local bundles that can be reviewed, modified, re-imported, or transferred across accounts.
+
+Typeless officially supports bulk dictionary import in [macOS App v1.4.0](https://www.typeless.com/help/release-notes/macos), released on May 14, 2026. Beyond bulk import, this project additionally provides dictionary export, editable re-import, cross-account transfer, dry-run preview, comparison, and sync.
 
 This project focuses on dictionary portability first and cross-account migration second. It helps you:
 
-- export the currently logged-in Typeless dictionary
-- review or edit the exported bundle before re-use
-- dry-run an import into the current Typeless account
+- export the currently logged-in Typeless dictionary as `dictionary.txt` / `dictionary.json`
+- manually review or edit the exported dictionary files
+- re-import edited files into the same Typeless account
 - import the bundle into another Typeless account after an explicit account switch
+- preview an import with dry-run before writing, including terms that would be added or skipped
+- compare the current account against an exported bundle and sync with add-only or explicit mirror mode
 
 It does **not** automate Typeless login/logout itself. Account switching remains an intentional manual checkpoint to reduce the risk of importing into the wrong account.
 
